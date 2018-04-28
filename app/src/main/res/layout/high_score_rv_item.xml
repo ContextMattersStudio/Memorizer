@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:layout_margin="@dimen/padding_small"
+    android:orientation="horizontal"
+    tools:backgroundTint="@color/black_overlay"
+    tools:background="@color/black_overlay">
+
+    <TextView
+        android:id="@+id/user_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/RecyclerViewItemTextAppearance"
+        tools:text="Emilio" />
+
+    <TextView
+        android:id="@+id/score"
+        android:layout_alignParentEnd="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/RecyclerViewItemTextAppearance"
+        tools:text="11" />
+
+</RelativeLayout>
