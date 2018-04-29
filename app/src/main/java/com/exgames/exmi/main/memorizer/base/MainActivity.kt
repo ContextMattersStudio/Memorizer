@@ -8,6 +8,7 @@ import com.exgames.exmi.main.memorizer.SharedPreferenceRepository
 import com.exgames.exmi.main.memorizer.mvp.model.WelcomeModel
 import com.exgames.exmi.main.memorizer.mvp.presenter.WelcomePresenter
 import com.exgames.exmi.main.memorizer.mvp.view.WelcomeView
+import com.google.android.gms.ads.MobileAds
 import io.realm.Realm
 import io.realm.RealmConfiguration
 import kotlinx.android.synthetic.main.activity_main.*
@@ -29,6 +30,7 @@ class MainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         Realm.init(this)
+        MobileAds.initialize(this, getString(R.string.ADMOB_APP_ID))
         val config = RealmConfiguration.Builder().name("high_scores.realm").build()
 
         val sharedPreferenceRepository = SharedPreferenceRepository(this)

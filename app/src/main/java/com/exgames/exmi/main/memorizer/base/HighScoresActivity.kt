@@ -51,8 +51,6 @@ class HighScoresActivity : BaseActivity() {
 
         presenter = HighScoresPresenter(HighScoresView(this), HighScoresModel(highScoresRepository))
 
-
-        //TODO: guardar estos puntos en la bd de los high_scores y permitir consultarla desde la primer pantalla
         onClearRecordsButtonPressed()
         onPlayAgainButtonPressed()
         onReturnButtonPressed()

@@ -73,7 +73,7 @@ class HighScoresRepositoryImpl(any: Any?, dataSource: RealmDataSource<RHighScore
         try {
             val realm: Realm = Realm.getDefaultInstance()
             dataSource as RHighscoresDataSource
-            var entities: List<RHighScores> = dataSource.getTopXElements(realm,RHighScores.FIELD_TO_SORT_BY,elementsToGet)
+            var entities: List<RHighScores> = dataSource.getTopXElements(realm, RHighScores.FIELD_TO_SORT_BY, elementsToGet)
             for (entity: RHighScores in entities) {
                 result.add(mapper.transform(entity))
             }
@@ -81,5 +81,30 @@ class HighScoresRepositoryImpl(any: Any?, dataSource: RealmDataSource<RHighScore
             Log.e(e.toString(), e.message)
         }
         return result
+    }
+
+    override fun clearLast() {
+        try {
+            val realm = Realm.getDefaultInstance()
+            dataSource as RHighscoresDataSource
+            val realmLastElement = dataSource.getTopXElements(realm, RHighScores.FIELD_TO_SORT_BY, getCount().toInt()).last()
+            val lastElement = mapper.transform(realmLastElement)
+            dataSource.clear(realm, RHighScores.FIELD_TO_SORT_BY, RHighScores.FIELD_USER_NAME, lastElement.score, lastElement.userName)
+
+        } catch (e: Exception) {
+            Log.e(e.toString(), e.message)
+        }
+    }
+
+    override fun getCount(): Long {
+        var count = 0L
+        try {
+            val realm = Realm.getDefaultInstance()
+            dataSource as RHighscoresDataSource
+            count = dataSource.count(realm)
+        } catch (e: Exception) {
+            Log.e(e.toString(), e.message)
+        }
+        return count
     }
 }

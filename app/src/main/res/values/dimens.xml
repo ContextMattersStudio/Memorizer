@@ -13,5 +13,6 @@
     <dimen name="welcome_high_scores_image_margin_start">15dp</dimen>
     <dimen name="welcome_high_score_icon_margin_start">15dp</dimen>
     <dimen name="welcome_high_score_icon_margin_bottom">25dp</dimen>
+    <item name="max_high_scores_to_display" type="dimen" format="float">10.0</item>
 
 </resources>

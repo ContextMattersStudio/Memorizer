@@ -41,6 +41,7 @@ class GamePresenter : BasePresenter {
 
     private fun loadGameData() {
         loadCards()
+        //TODO UNCOMMENT THIS WHEN ON THE MARKET VERSION
         model?.shuffleCards()
         view?.setGridViewAdapter(ImageAdapter(view!!.getActivity(), model!!.getCards()!!))
     }

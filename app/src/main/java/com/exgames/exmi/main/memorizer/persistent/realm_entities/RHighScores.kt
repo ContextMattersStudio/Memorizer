@@ -9,6 +9,7 @@ open class RHighScores : RealmObject() {
     companion object {
         val PRIMARY_KEY = "ID"
         val FIELD_TO_SORT_BY = "score"
+        val FIELD_USER_NAME = "userName"
     }
 
     lateinit var userName: String

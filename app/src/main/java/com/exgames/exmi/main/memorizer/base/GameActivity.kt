@@ -14,6 +14,7 @@ import com.exgames.exmi.main.memorizer.persistent.repositories.base.interfaces.H
 import com.exgames.exmi.main.memorizer.persistent.repositories.base.interfaces.implementations.HighScoresRepositoryImpl
 import com.exgames.exmi.main.utils.ActivityUtils
 import kotlinx.android.synthetic.main.activity_game.*
+import android.util.TypedValue
 
 
 class GameActivity : BaseActivity() {
@@ -34,8 +35,10 @@ class GameActivity : BaseActivity() {
         setContentView(R.layout.activity_game)
 
         val highScoresRepository: HighScoresRepository = HighScoresRepositoryImpl(null, RHighscoresDataSource(), RHighScoresMapper())
-
-        presenter = GamePresenter(GameView(this), GameModel(highScoresRepository))
+        val outValue = TypedValue()
+        resources.getValue(R.dimen.max_high_scores_to_display, outValue, true)
+        val maxHighScoresToDisplay = outValue.float.toLong()
+        presenter = GamePresenter(GameView(this), GameModel(highScoresRepository, maxHighScoresToDisplay))
 
         onReturnButtonPressed()
         onPlayAgainButtonPressed()

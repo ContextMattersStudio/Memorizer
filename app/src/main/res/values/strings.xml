@@ -1,5 +1,13 @@
 <resources>
+    <!--App resources-->
     <string name="app_name">Memorizer</string>
+
+    <!--AdMob resources-->
+    <string name="ADMOB_APP_ID">ca-app-pub-7981205089259397~5348250863</string>
+    <string name="ADMOB_BANNER_ADD_UNIT_ID_EXAMPLE">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="ADMOB_BANNER_ADD_UNIT_ID_HIGHSCORES">ca-app-pub-7981205089259397/3033526216</string>
+
+
     <string name="start"> Start </string>
     <string name="exit"> Exit </string>
     <string name="return_button">Return</string>
@@ -11,11 +19,6 @@
     <string name="credits">Images designed by freepik.com </string>
     <string name="play_again">Play again</string>
     <string name="new_high_score">NEW HIGHSCORE! </string>
-
-    <!-- -
-        This is an ad unit ID for a banner test ad. Replace with your own banner ad unit id.
-        For more information, see https://support.google.com/admob/answer/3052638
-    <!- -->
     <string name="high_score" translatable="false">HIGH SCORE</string>
     <string name="your_last_score_text">Your last score</string>
     <string name="back">Back</string>
@@ -23,6 +26,10 @@
     <string name="high_score_eleven">11</string>
     <string name="new_highs_core_name">Insert your name</string>
     <string name="clear_data_base_text">Clear records</string>
+    <string name="dialog_confirm_clear_records_title">Delete all records?</string>
+    <string name="dialog_confirm_clear_records_message">This action can not be undone</string>
+    <string name="dialog_confirm_clear_records_accept_button_text">Confirm</string>
+    <string name="dialog_confirm_clear_records_cancel_button_text">Cancel</string>
 
 
 </resources>

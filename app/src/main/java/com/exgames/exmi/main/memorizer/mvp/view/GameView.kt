@@ -5,12 +5,14 @@ import android.os.Handler
 import com.exgames.exmi.main.memorizer.R
 import com.exgames.exmi.main.memorizer.base.GameActivity
 import com.exgames.exmi.main.memorizer.adapters.ImageAdapter
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdView
 
 class GameView : BaseView {
 
     private var gridViewAdapter: ImageAdapter? = null
-
     private var mediaPlayer: MediaPlayer?
+    private lateinit var banner: AdView
 
     companion object {
         private const val VOLUME = 0.5f
@@ -20,6 +22,13 @@ class GameView : BaseView {
     constructor(gameActivity: GameActivity) {
         this.activity = gameActivity
         mediaPlayer = MediaPlayer.create(this.activity!!.applicationContext, R.raw.piglevelwin2)
+        initBannerAd()
+    }
+
+    private fun initBannerAd() {
+        banner = activity!!.findViewById(R.id.admob_ad_game)
+        val adRequest = AdRequest.Builder().build()
+        banner.loadAd(adRequest)
     }
 
     fun setGridViewAdapter(gridViewAdapter: ImageAdapter) {

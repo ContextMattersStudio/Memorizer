@@ -10,14 +10,24 @@ import com.exgames.exmi.main.memorizer.adapters.HighScoresAdapter
 import com.exgames.exmi.main.memorizer.base.BaseActivity
 import com.exgames.exmi.main.memorizer.persistent.domain.HighScores
 import com.exgames.exmi.main.utils.OnButtonClickedCallback
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdView
 
 class HighScoresView(activity: BaseActivity) : BaseView() {
     private var recyclerView: RecyclerView? = null
     private var adapter: HighScoresAdapter? = null
+    private lateinit var banner: AdView
 
     init {
         this.activity = activity
         initRecyclerView()
+        initBannerAd()
+    }
+
+    private fun initBannerAd() {
+        banner = activity!!.findViewById(R.id.admob_ad_high_scores)
+        val adRequest = AdRequest.Builder().build()
+        banner.loadAd(adRequest)
     }
 
     private fun initRecyclerView() {
@@ -37,11 +47,12 @@ class HighScoresView(activity: BaseActivity) : BaseView() {
 
     fun showSureToClearRecordsDialog(onButtonYesPressedCallback: OnButtonClickedCallback, onButtonNoPressedCallback: OnButtonClickedCallback) {
         val builder = AlertDialog.Builder(activity!!)
-        val dialog: AlertDialog = builder.setTitle("Delete all records?").setMessage("This action can not be undone")
-                .setPositiveButton("Confirm", { _, _ ->
+        val dialog: AlertDialog = builder.setTitle(activity!!.getString(R.string.dialog_confirm_clear_records_title))
+                .setMessage(activity!!.getString(R.string.dialog_confirm_clear_records_message))
+                .setPositiveButton(activity!!.getString(R.string.dialog_confirm_clear_records_accept_button_text), { _, _ ->
                     onButtonYesPressedCallback.onClick()
                 })
-                .setNegativeButton("Cancel", { _, _ ->
+                .setNegativeButton(activity!!.getString(R.string.dialog_confirm_clear_records_cancel_button_text), { _, _ ->
                     onButtonNoPressedCallback.onClick()
                     //dialog?.dismiss()
                 })

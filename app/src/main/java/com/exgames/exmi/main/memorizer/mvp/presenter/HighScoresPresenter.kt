@@ -17,7 +17,7 @@ class HighScoresPresenter(var view: HighScoresView, var model: HighScoresModel) 
     }
 
     private fun loadListWithItems(allHighScores: MutableList<HighScores>) {
-        //TODO CARGAR LA RECYCLERVIEW CON LOS 10 MEJORES RECORDS DE UNA FORMA COOL Y ANIMADA XQ SOY EL MEJOR 8-D
+        //TODO CARGAR LA RECYCLERVIEW CON LOS 10 MEJORES RECORDS DE UNA FORMA COOL Y ANIMADA XQ SOY EL MEJOR 8-D (podria hacer lo del fade in en cada elemento <3
         (baseView as HighScoresView).setRecyclerViewItems(allHighScores)
     }
 

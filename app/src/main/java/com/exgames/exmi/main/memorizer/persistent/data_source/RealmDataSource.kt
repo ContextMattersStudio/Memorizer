@@ -2,10 +2,11 @@ package com.exgames.exmi.main.memorizer.persistent.data_source
 
 import android.support.annotation.NonNull
 import android.util.Log
+import com.exgames.exmi.main.memorizer.persistent.domain.HighScores
 import io.realm.Realm
 import io.realm.RealmObject
-import io.realm.RealmResults
 import io.realm.Sort
+import io.realm.com_exgames_exmi_main_memorizer_persistent_realm_entities_RHighScoresRealmProxy
 
 
 abstract class RealmDataSource<T : RealmObject>(private var clazz: Class<T>) {
@@ -52,6 +53,17 @@ abstract class RealmDataSource<T : RealmObject>(private var clazz: Class<T>) {
             results.subList(0, elementsToGet).toMutableList()
         } else {
             results.subList(0, results.size).toMutableList()
+        }
+    }
+
+    fun clear(realmInstance: Realm, firstField: String, secondField: String, firstFieldValue: String, secondFieldValue: String) {
+        realmInstance.executeTransaction { realm ->
+            val results = realm.where(clazz)
+                    .equalTo(firstField, firstFieldValue)
+                    .and()
+                    .equalTo(secondField, secondFieldValue)
+                    .findFirst()
+            results?.deleteFromRealm()
         }
     }
 }

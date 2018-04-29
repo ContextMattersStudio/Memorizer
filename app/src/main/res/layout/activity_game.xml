@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--Todo: cambiar esto por un relative layout y que la gridview osea wrap content y este below el textview y avobe el linear de los botones-->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
     android:id="@+id/fullscreen_content_controls"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -28,7 +30,7 @@
         android:gravity="center|bottom"
         android:horizontalSpacing="1dp"
         android:numColumns="auto_fit"
-        android:paddingTop="50dp"
+        android:paddingTop="30dp"
         android:stretchMode="spacingWidthUniform"
         android:verticalSpacing="10dp" />
 
@@ -50,16 +52,14 @@
             android:layout_height="wrap_content"
             android:text="@string/return_button" />
     </LinearLayout>
-    <!--
-        <baseViewview for AdMob Banner Ad
-        <com.google.android.gms.ads.AdView
-            android:id="@+id/adView"
-            android:layout_width="344dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:foregroundGravity="bottom"
-            ads:adSize="BANNER"
-            ads:adUnitId="@string/banner_ad_unit_id" />
-    -->
+
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/admob_ad_game"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        ads:adSize="BANNER"
+        ads:adUnitId="@string/ADMOB_BANNER_ADD_UNIT_ID_EXAMPLE" />
+
 
 </LinearLayout>
