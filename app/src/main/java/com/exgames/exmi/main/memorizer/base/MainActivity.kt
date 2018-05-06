@@ -40,8 +40,15 @@ class MainActivity : BaseActivity() {
         onHighScoreTextPressed()
         onStartButtonPressed()
         onExitButtonPressed()
-        onMusicCheckboxClick()
+        //onMusicCheckboxClick()
+        onOptionButtonPressed()
 
+    }
+
+    private fun onOptionButtonPressed() {
+        optionsButton.setOnClickListener {
+            presenter?.goToSettingsScreen()
+        }
     }
 
     private fun onMusicCheckboxClick() {
@@ -71,7 +78,7 @@ class MainActivity : BaseActivity() {
 
     private fun onStartButtonPressed() {
         goGameButton.setOnClickListener {
-            shouldStopMusic = false
+            //shouldStopMusic = false
             presenter!!.goToGame()
         }
     }
@@ -82,8 +89,8 @@ class MainActivity : BaseActivity() {
 
     override fun onResume() {
         super.onResume()
-        shouldStopMusic = true
-        presenter!!.playMusic()
+        //shouldStopMusic = true
+        //presenter!!.playMusic()
     }
 
     override fun onPause() {
@@ -91,7 +98,7 @@ class MainActivity : BaseActivity() {
         /*if (shouldStopMusic) {
             presenter!!.stopPlayingMusic()
         }*/
-        presenter?.onPause()
+        //presenter?.onPause()
     }
 
     override fun onBackPressed() {

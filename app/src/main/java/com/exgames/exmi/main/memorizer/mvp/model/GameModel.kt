@@ -1,8 +1,8 @@
 package com.exgames.exmi.main.memorizer.mvp.model
 
 import com.exgames.exmi.main.memorizer.R
+import com.exgames.exmi.main.memorizer.SharedPreferenceRepository
 import com.exgames.exmi.main.memorizer.persistent.domain.HighScores
-import com.exgames.exmi.main.memorizer.persistent.entities.HighScore
 import com.exgames.exmi.main.memorizer.persistent.repositories.base.interfaces.HighScoresRepository
 import com.exgames.exmi.main.utils.ConstantNumbersUtils.Companion.EIGHT_INT
 import com.exgames.exmi.main.utils.ConstantNumbersUtils.Companion.ELEVEN_INT
@@ -18,7 +18,7 @@ import com.exgames.exmi.main.utils.ConstantNumbersUtils.Companion.TWELVE_INT
 import com.exgames.exmi.main.utils.ConstantNumbersUtils.Companion.TWO_INT
 import java.util.*
 
-class GameModel(repository: HighScoresRepository, private val maxHighScoresToDisplay: Long) {
+class GameModel(repository: HighScoresRepository, private val sharedPreferenceRepository: SharedPreferenceRepository, private val maxHighScoresToDisplay: Long) {
 
     private var cards: ArrayList<Card>? = ArrayList()
     private var tries: Int = 0
@@ -91,5 +91,9 @@ class GameModel(repository: HighScoresRepository, private val maxHighScoresToDis
 
     fun getFirstHighScore(): HighScores? {
         return repository?.getFirst()
+    }
+
+    fun isSoundActive(): Boolean {
+        return sharedPreferenceRepository.getSound()
     }
 }

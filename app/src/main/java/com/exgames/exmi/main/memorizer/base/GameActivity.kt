@@ -3,7 +3,9 @@ package com.exgames.exmi.main.memorizer.base
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.util.TypedValue
 import com.exgames.exmi.main.memorizer.R
+import com.exgames.exmi.main.memorizer.SharedPreferenceRepository
 import com.exgames.exmi.main.memorizer.adapters.ImageAdapter
 import com.exgames.exmi.main.memorizer.mvp.model.GameModel
 import com.exgames.exmi.main.memorizer.mvp.presenter.GamePresenter
@@ -14,7 +16,6 @@ import com.exgames.exmi.main.memorizer.persistent.repositories.base.interfaces.H
 import com.exgames.exmi.main.memorizer.persistent.repositories.base.interfaces.implementations.HighScoresRepositoryImpl
 import com.exgames.exmi.main.utils.ActivityUtils
 import kotlinx.android.synthetic.main.activity_game.*
-import android.util.TypedValue
 
 
 class GameActivity : BaseActivity() {
@@ -38,7 +39,8 @@ class GameActivity : BaseActivity() {
         val outValue = TypedValue()
         resources.getValue(R.dimen.max_high_scores_to_display, outValue, true)
         val maxHighScoresToDisplay = outValue.float.toLong()
-        presenter = GamePresenter(GameView(this), GameModel(highScoresRepository, maxHighScoresToDisplay))
+        val sharedPreferenceRepository = SharedPreferenceRepository(this)
+        presenter = GamePresenter(GameView(this), GameModel(highScoresRepository, sharedPreferenceRepository, maxHighScoresToDisplay))
 
         onReturnButtonPressed()
         onPlayAgainButtonPressed()
@@ -81,7 +83,6 @@ class GameActivity : BaseActivity() {
     }
 
     override fun onBackPressed() {
-        super.onBackPressed()
         ActivityUtils.startActivityAndFinishFadeOutFadeIn(this, MainActivity.getIntent(this))
     }
 }

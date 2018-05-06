@@ -19,8 +19,8 @@ class WelcomePresenter : BasePresenter{
     private fun init() {
         initialize()
         isSoundActivated = model!!.getShardPreferenceSoundActivated()
-        onMusicCheckboxClick(isSoundActivated)
-        initSound()
+        //onMusicCheckboxClick(isSoundActivated)
+        //initSound()
     }
 
     private fun initSound() {
@@ -48,16 +48,16 @@ class WelcomePresenter : BasePresenter{
         model?.putSharedPreferenceSoundActivated(checked)
         if (checked) {
             isSoundActivated = true
-            view!!.playMusic()
+            //view!!.playMusic()
         } else {
             isSoundActivated = false
-            view!!.stopPlayingMusic()
+            //view!!.stopPlayingMusic()
         }
     }
 
     fun playMusic() {
         if (isSoundActivated) {
-            view!!.playMusic()
+           // view!!.playMusic()
         }
     }
 
@@ -67,5 +67,9 @@ class WelcomePresenter : BasePresenter{
 
     fun goToHighScoresScreen() {
         view?.launchHighScoresActivity()
+    }
+
+    fun goToSettingsScreen() {
+        view?.launchSettingsScreen()
     }
 }

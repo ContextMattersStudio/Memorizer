@@ -9,12 +9,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".base.MainActivity">
+        <activity
+            android:name=".base.SplashActivity"
+            android:label="@string/app_name"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".base.MainActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".base.GameActivity"
             android:exported="false"
@@ -23,6 +31,7 @@
             android:name=".base.HighScoresActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
+        <activity android:name=".base.SettingsActivity"></activity>
     </application>
 
 </manifest>

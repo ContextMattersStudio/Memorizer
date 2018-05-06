@@ -3,8 +3,8 @@ package com.exgames.exmi.main.memorizer.mvp.view
 import android.media.MediaPlayer
 import android.os.Handler
 import com.exgames.exmi.main.memorizer.R
-import com.exgames.exmi.main.memorizer.base.GameActivity
 import com.exgames.exmi.main.memorizer.adapters.ImageAdapter
+import com.exgames.exmi.main.memorizer.base.GameActivity
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
 
@@ -34,6 +34,7 @@ class GameView : BaseView {
     fun setGridViewAdapter(gridViewAdapter: ImageAdapter) {
         this.gridViewAdapter = gridViewAdapter
         getActivity().setGridViewAdapter(gridViewAdapter)
+
     }
 
     fun getActivity(): GameActivity {

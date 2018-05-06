@@ -5,6 +5,7 @@ import com.exgames.exmi.main.memorizer.R
 import com.exgames.exmi.main.memorizer.base.GameActivity
 import com.exgames.exmi.main.memorizer.base.HighScoresActivity
 import com.exgames.exmi.main.memorizer.base.MainActivity
+import com.exgames.exmi.main.memorizer.base.SettingsActivity
 import com.exgames.exmi.main.utils.ActivityUtils
 
 class WelcomeView : BaseView {
@@ -58,6 +59,10 @@ class WelcomeView : BaseView {
 
     fun launchHighScoresActivity() {
         ActivityUtils.startActivityAndFinishFadeOutFadeIn(activity!!, HighScoresActivity.getIntent(activity!!))
+    }
+
+    fun launchSettingsScreen() {
+        ActivityUtils.startActivityAndFinishFadeOutFadeIn(activity!!, SettingsActivity.getIntent(activity!!))
     }
 
 }

@@ -13,7 +13,7 @@ object RxBusKotlin {
         publishSubject.onNext(`object`)
     }
 
-    fun suscribe(key: Any, busObserver: DialogHighScoresSaveButtonPressedBusObserverKotlin) {
+    fun subscribe(key: Any, busObserver: DialogHighScoresSaveButtonPressedBusObserverKotlin) {
         var compositeDisposable: CompositeDisposable? = disposableMap[key]
         if (compositeDisposable == null) {
             compositeDisposable = CompositeDisposable()
