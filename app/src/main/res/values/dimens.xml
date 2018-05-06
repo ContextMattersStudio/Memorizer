@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="welcome_checkbox_margin_bottom">20dp</dimen>
+    <dimen name="welcome_checkbox_margin_end">20dp</dimen>
+    <dimen name="high_score_dialog_titel_text_size">15sp</dimen>
+    <dimen name="padding_general">10dp</dimen>
+    <dimen name="padding_general_20">20dp</dimen>
+    <dimen name="padding_general_30">20dp</dimen>
+    <dimen name="high_score_dialog_edit_text_size">20sp</dimen>
+    <dimen name="padding_small">5dp</dimen>
+    <dimen name="no_padding">0dp</dimen>
+    <dimen name="recycler_view_item_text_size">20sp</dimen>
+    <dimen name="padding_general_50">50dp</dimen>
+    <dimen name="welcome_high_scores_image_margin_start">15dp</dimen>
+    <dimen name="welcome_high_score_icon_margin_start">15dp</dimen>
+    <dimen name="welcome_high_score_icon_margin_bottom">25dp</dimen>
+    <item name="max_high_scores_to_display" type="dimen" format="float">10.0</item>
+
+</resources>
