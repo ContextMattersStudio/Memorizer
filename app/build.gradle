@@ -15,10 +15,58 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
+    signingConfigs {
+        releaseConfig {
+            storeFile file("memorizerkaystore.jks")
+            storePassword("memopassword91735")
+            keyAlias "memopassword"
+            keyPassword "memopassword91735"
+        }
+    }
+
     buildTypes {
         release {
+            debuggable false
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.releaseConfig
+        }
+
+        debug {
+            debuggable true
+            applicationIdSuffix ".debug"
+        }
+    }
+
+    // Todo: Aprender más sobre flavors https://developer.android.com/studio/build/optimize-your-build
+
+    flavorDimensions "freeBaseFlavor"
+
+    productFlavors {
+
+        freeFlavorVelociraptors {
+            dimension "freeBaseFlavor"
+            versionNameSuffix "-velociraptors.free"
+            applicationIdSuffix ".velociraptors.free"
+        }
+
+        paidFlavorVelociraptors {
+            dimension "freeBaseFlavor"
+            versionNameSuffix "-velociraptors.paid"
+            applicationIdSuffix ".velociraptors.paid"
+        }
+
+        freeFlavorMemorizer {
+            dimension "freeBaseFlavor"
+            versionNameSuffix "-memorizer.free"
+            applicationIdSuffix ".memorizer.free"
+        }
+
+        paidFlavorMemorizer {
+            dimension "freeBaseFlavor"
+            versionNameSuffix "-memorizer.paid"
+            applicationIdSuffix '.memorizer.paid'
         }
     }
 }

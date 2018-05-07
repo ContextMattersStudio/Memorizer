@@ -1,7 +1,6 @@
 package com.exgames.exmi.main.memorizer.base
 
 import android.app.Activity
-import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import com.exgames.exmi.main.memorizer.R
@@ -18,24 +17,27 @@ import kotlinx.android.synthetic.main.activity_high_scores.*
 class HighScoresActivity : BaseActivity() {
 
     private var presenter: HighScoresPresenter? = null
+    private var screenToGoBackTo: String = ""
 
     companion object {
         @JvmField
         val EXTRA_POINTS = "EXTRA_POINTS"
         val EXTRA_USER_NAME = "EXTRA_USER_NAME"
+        val EXTRA_COMES_FROM_WELCOME_SCREEN = "EXTRA_COMES_FROM_WELCOME_SCREEN"
+        val EXTRA_COMES_FROM_GAME_SCREEN = "EXTRA_COMES_FROM_GAME_SCREEN"
+        val EXTRA_COMES_FROM_SCREEN = "EXTRA_COMES_FROM_SCREEN"
 
         fun getIntent(activity: Activity): Intent {
-
-            return Intent(
-                    activity,
-                    HighScoresActivity::class.java)
+            val intent = Intent(activity, HighScoresActivity::class.java)
+            intent.putExtra(EXTRA_COMES_FROM_SCREEN, EXTRA_COMES_FROM_WELCOME_SCREEN)
+            return intent
         }
 
         fun getIntent(activity: Activity, points: Int, userName: String): Intent {
-
-            var intent = Intent(activity, HighScoresActivity::class.java)
+            val intent = Intent(activity, HighScoresActivity::class.java)
             intent.putExtra(EXTRA_POINTS, points)
             intent.putExtra(EXTRA_USER_NAME, userName)
+            intent.putExtra(EXTRA_COMES_FROM_SCREEN, EXTRA_COMES_FROM_GAME_SCREEN)
             return intent
         }
     }
@@ -45,7 +47,12 @@ class HighScoresActivity : BaseActivity() {
         setContentView(R.layout.activity_high_scores)
         if (intent.extras != null) {
             val lastUserPoints: Int = intent.getIntExtra(EXTRA_POINTS, -1)
-            val lastUserName: String = intent.getStringExtra(EXTRA_USER_NAME)
+            if (intent.hasExtra(EXTRA_USER_NAME)) {
+                val lastUserName: String = intent.getStringExtra(EXTRA_USER_NAME)
+            }
+            if (intent.hasExtra(EXTRA_COMES_FROM_SCREEN)) {
+                screenToGoBackTo = intent.getStringExtra(EXTRA_COMES_FROM_SCREEN)
+            }
         }
         val highScoresRepository: HighScoresRepository = HighScoresRepositoryImpl(null, RHighscoresDataSource(), RHighScoresMapper())
 
@@ -72,12 +79,19 @@ class HighScoresActivity : BaseActivity() {
 
     private fun onReturnButtonPressed() {
         return_button2.setOnClickListener {
+            decideWhereToGoBack()
+        }
+    }
+
+    private fun decideWhereToGoBack() {
+        if (screenToGoBackTo == EXTRA_COMES_FROM_WELCOME_SCREEN) {
             ActivityUtils.startActivityAndFinishFadeOutFadeIn(this, MainActivity.getIntent(this))
+        } else if (screenToGoBackTo == EXTRA_COMES_FROM_GAME_SCREEN) {
+            ActivityUtils.startActivityAndFinishFadeOutFadeIn(this, GameActivity.getIntent(this))
         }
     }
 
     override fun onBackPressed() {
-        super.onBackPressed()
-        ActivityUtils.startActivityAndFinishFadeOutFadeIn(this, GameActivity.getIntent(this))
+        decideWhereToGoBack()
     }
 }

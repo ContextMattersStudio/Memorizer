@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    tools:context="com.exgames.exmi.main.memorizer.base.MainActivity">
+
+    <LinearLayout
+        android:id="@+id/linear_settings"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/padding_general_20"
+        android:background="@drawable/layout_background_rounded_corners"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="@dimen/padding_general_20"
+            android:layout_marginTop="@dimen/padding_general_20"
+            android:text="@string/settings_title"
+            android:textSize="@dimen/high_score_dialog_titel_text_size"
+            android:textStyle="bold" />
+
+        <Switch
+            android:id="@+id/switch_music"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/padding_general_20"
+            android:text="@string/settings_music_switch"
+            android:theme="@style/SwitchCompatTheme" />
+
+        <Switch
+            android:id="@+id/switch_sounds"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/padding_general_20"
+            android:text="@string/settings_sounds_switch"
+            android:theme="@style/SwitchCompatTheme" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/settings_back_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="@dimen/padding_general_20"
+        android:layout_marginEnd="@dimen/padding_general_20"
+        android:text="@string/back" />
+
+</RelativeLayout>

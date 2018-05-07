@@ -1,14 +1,15 @@
 package com.exgames.exmi.main.memorizer.mvp.presenter
 
+import android.app.Activity
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ImageView
 import com.exgames.exmi.main.bus.RxBusKotlin
 import com.exgames.exmi.main.bus.events.base.DialogHighScoresSaveButtonPressedBusObserverKotlin
+import com.exgames.exmi.main.memorizer.adapters.ImageAdapter
 import com.exgames.exmi.main.memorizer.base.BaseActivity
 import com.exgames.exmi.main.memorizer.base.HighScoresActivity
 import com.exgames.exmi.main.memorizer.base.MainActivity
-import com.exgames.exmi.main.memorizer.adapters.ImageAdapter
 import com.exgames.exmi.main.memorizer.mvp.model.GameModel
 import com.exgames.exmi.main.memorizer.mvp.view.GameView
 import com.exgames.exmi.main.utils.ActivityUtils
@@ -25,6 +26,11 @@ class GamePresenter : BasePresenter {
     private var lastTappedCardPosition: Int? = 0
     private var cardsStillInGame = 0
 
+    companion object {
+        private const val DELAY = 500L
+        private const val DESTROY_DELAY = 0L
+    }
+
     constructor(gameView: GameView, gameModel: GameModel) {
         baseView = gameView
         this.view = gameView
@@ -32,11 +38,6 @@ class GamePresenter : BasePresenter {
         initialize()
         loadGameData()
         cardsStillInGame = model?.getCards()!!.size
-    }
-
-    companion object {
-        private const val DELAY = 500L
-        private const val DESTROY_DELAY = 0L
     }
 
     private fun loadGameData() {
@@ -110,7 +111,9 @@ class GamePresenter : BasePresenter {
     }
 
     private fun performWinSound() {
-        view?.performWinSound()
+        if (model?.isSoundActive()!!) {
+            view?.performWinSound()
+        }
     }
 
     private fun goToHIghScoreScreen() {
@@ -118,7 +121,6 @@ class GamePresenter : BasePresenter {
         val onButtonBackClickedCallback = object : OnButtonClickedCallback {
             override fun onClick() {
                 ActivityUtils.startActivityAndFinishFadeOutFadeIn(activity, MainActivity.getIntent(activity))
-
             }
         }
 
@@ -129,11 +131,16 @@ class GamePresenter : BasePresenter {
 
     fun onResume() {
         val activity: BaseActivity = view?.getActivity() as BaseActivity
-        RxBusKotlin.suscribe(this, object : DialogHighScoresSaveButtonPressedBusObserverKotlin() {
+        subscribeSaveHighScoreDialogObserver(activity)
+    }
+
+    private fun subscribeSaveHighScoreDialogObserver(activity: Activity) {
+        RxBusKotlin.subscribe(this, object : DialogHighScoresSaveButtonPressedBusObserverKotlin() {
             override fun onEvent(value: DialogHighScoresSaveButtonPressedEvent) {
                 value.userName
                 model!!.saveNewHighScore(userName = value.userName, points = model!!.getTries().toString())
-                ActivityUtils.startActivityAndFinishFadeOutFadeIn(activity, HighScoresActivity.getIntent(activity, model!!.getTries(), value.userName))
+                ActivityUtils.startActivityAndFinishFadeOutFadeIn(activity,
+                        HighScoresActivity.getIntent(activity, model!!.getTries(), value.userName))
             }
         })
     }
