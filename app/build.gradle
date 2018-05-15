@@ -68,6 +68,12 @@ android {
             versionNameSuffix "-memorizer.paid"
             applicationIdSuffix '.memorizer.paid'
         }
+
+        paidFlavorMemorizerFerro {
+            dimension "freeBaseFlavor"
+            versionNameSuffix "-memorizer.ferro"
+            applicationIdSuffix '.memorizer.ferro'
+        }
     }
 }
 
@@ -89,8 +95,12 @@ dependencies {
     implementation "io.reactivex.rxjava2:rxjava:$rxjava_version"
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
     implementation "com.android.support:recyclerview-v7:$appcompatv7_version"
-    implementation 'com.google.android.gms:play-services-ads:15.0.0'
+    implementation 'com.google.android.gms:play-services-ads:15.0.1'
 
+    // Google Lifecycle Components
+    implementation "android.arch.lifecycle:extensions:$lifecycle_version"
+    implementation 'com.android.support.constraint:constraint-layout:1.1.0'
+    annotationProcessor "android.arch.lifecycle:compiler:$lifecycle_version"
     //implementation "android.arch.lifecycle:extensions:$lifecycle_version"
     //annotationProcessor "android.arch.lifecycle:compiler:$lifecycle_version"
 

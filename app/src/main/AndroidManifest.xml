@@ -3,6 +3,7 @@
     package="com.exgames.exmi.main.memorizer">
 
     <application
+        android:name=".app.MemorizerApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -31,7 +32,10 @@
             android:name=".base.HighScoresActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
-        <activity android:name=".base.SettingsActivity"></activity>
+        <activity
+            android:name=".base.SettingsActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

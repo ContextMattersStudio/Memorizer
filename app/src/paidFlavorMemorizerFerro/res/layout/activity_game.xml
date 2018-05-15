@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?><!--Todo: cambiar esto por un relative layout y que la gridview osea wrap content y este below el textview y avobe el linear de los botones-->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/fullscreen_content_controls"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/background_game" />
+
+    <TextView
+        android:id="@+id/fullscreen_content"
+        android:layout_width="wrap_content"
+        android:layout_height="65dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:keepScreenOn="true"
+        android:text="@string/game_name"
+        android:textColor="?attr/colorAccent"
+        android:textSize="45sp"
+        android:textStyle="bold" />
+
+    <GridView
+        android:id="@+id/grid_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/linear_buttons"
+        android:layout_below="@+id/fullscreen_content"
+        android:adjustViewBounds="true"
+        android:columnWidth="70dp"
+        android:gravity="center|bottom"
+        android:horizontalSpacing="1dp"
+        android:numColumns="auto_fit"
+        android:paddingTop="30dp"
+        android:stretchMode="spacingWidthUniform"
+        android:verticalSpacing="10dp" />
+
+    <LinearLayout
+        android:id="@+id/linear_buttons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="end"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/play_again_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/play_again" />
+
+        <Button
+            android:id="@+id/return_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/return_button" />
+    </LinearLayout>
+
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/admob_ad_game"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:visibility="gone"
+        ads:adSize="BANNER"
+        ads:adUnitId="@string/ADMOB_BANNER_ADD_UNIT_ID_EXAMPLE" />
+
+
+</RelativeLayout>

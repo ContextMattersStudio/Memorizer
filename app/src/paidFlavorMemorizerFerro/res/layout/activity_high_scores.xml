@@ -4,8 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/highscore"
     android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/background_high_scores" />
 
     <TextView
         android:id="@+id/high_score_title"
@@ -16,7 +21,7 @@
         android:layout_gravity="center"
         android:keepScreenOn="true"
         android:text="@string/high_scores"
-        android:textColor="@color/colorAccent"
+        android:textColor="@android:color/holo_blue_light"
         android:textSize="50sp"
         android:textStyle="bold" />
 
