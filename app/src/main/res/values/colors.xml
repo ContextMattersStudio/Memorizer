@@ -4,6 +4,7 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#f4f5fa</color>
     <color name="black_overlay">#66000000</color>
+    <color name="nileBlue">#1A394E</color>
     <color name="transparent">#FFFFFFFF</color>
     <color name="gray">#444440</color>
     <color name="black">#000000</color>

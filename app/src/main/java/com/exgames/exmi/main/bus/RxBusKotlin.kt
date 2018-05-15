@@ -1,6 +1,6 @@
 package com.exgames.exmi.main.bus
 
-import com.exgames.exmi.main.bus.events.base.DialogHighScoresSaveButtonPressedBusObserverKotlin
+import com.exgames.exmi.main.bus.events.base.BusObserverKotlin
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.PublishSubject
 import java.util.HashMap
@@ -13,12 +13,12 @@ object RxBusKotlin {
         publishSubject.onNext(`object`)
     }
 
-    fun subscribe(key: Any, busObserver: DialogHighScoresSaveButtonPressedBusObserverKotlin) {
+    fun subscribe(key: Any,  busObserverKotlin: BusObserverKotlin<*>) {
         var compositeDisposable: CompositeDisposable? = disposableMap[key]
         if (compositeDisposable == null) {
             compositeDisposable = CompositeDisposable()
         }
-        compositeDisposable.add(publishSubject.subscribe(busObserver))
+        compositeDisposable.add(publishSubject.subscribe(busObserverKotlin))
         disposableMap[key] = compositeDisposable
     }
 

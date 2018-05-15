@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/background_high_scores" />
+
+    <TextView
+        android:id="@+id/high_score_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:keepScreenOn="true"
+        android:text="@string/high_scores"
+        android:textColor="@android:color/holo_blue_light"
+        android:textSize="50sp"
+        android:textStyle="bold" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/high_score_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/last_score"
+        android:layout_below="@+id/high_score_title"
+        android:layout_marginTop="20dp"
+        android:overScrollMode="never"
+        android:paddingEnd="40dp"
+        android:paddingStart="40dp" />
+
+    <TextView
+        android:id="@+id/last_score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/buttons_layout"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:keepScreenOn="true"
+        android:maxLines="1"
+        android:text="@string/your_last_score_text"
+        android:textColor="@color/colorAccent"
+        android:textSize="40sp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:id="@+id/buttons_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="5dp"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        tools:ignore="RtlHardcoded">
+
+        <Button
+            android:id="@+id/clear_records"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:text="@string/clear_data_base_text"
+            tools:ignore="ButtonStyle" />
+
+        <Button
+            android:id="@+id/play_again_button2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:text="@string/play_again"
+            tools:ignore="ButtonStyle" />
+
+        <Button
+            android:id="@+id/return_button2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/return_button"
+            tools:ignore="ButtonStyle" />
+    </LinearLayout>
+
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/admob_ad_high_scores"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone"
+        ads:adSize="BANNER"
+        ads:adUnitId="@string/ADMOB_BANNER_ADD_UNIT_ID_EXAMPLE" />
+
+    <!--baseViewview for AdMob Banner Ad -->
+
+</RelativeLayout>

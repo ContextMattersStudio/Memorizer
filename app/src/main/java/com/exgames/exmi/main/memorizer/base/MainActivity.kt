@@ -4,10 +4,10 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import com.exgames.exmi.main.memorizer.R
-import com.exgames.exmi.main.memorizer.SharedPreferenceRepository
 import com.exgames.exmi.main.memorizer.mvp.model.WelcomeModel
 import com.exgames.exmi.main.memorizer.mvp.presenter.WelcomePresenter
 import com.exgames.exmi.main.memorizer.mvp.view.WelcomeView
+import com.exgames.exmi.main.memorizer.persistent.preferences.SharedPreferenceRepository
 import com.google.android.gms.ads.MobileAds
 import io.realm.Realm
 import io.realm.RealmConfiguration
@@ -40,7 +40,6 @@ class MainActivity : BaseActivity() {
         onHighScoreTextPressed()
         onStartButtonPressed()
         onExitButtonPressed()
-        //onMusicCheckboxClick()
         onOptionButtonPressed()
 
     }
@@ -48,12 +47,6 @@ class MainActivity : BaseActivity() {
     private fun onOptionButtonPressed() {
         optionsButton.setOnClickListener {
             presenter?.goToSettingsScreen()
-        }
-    }
-
-    private fun onMusicCheckboxClick() {
-        music_checkbox.setOnCheckedChangeListener { _, isChecked ->
-            presenter!!.onMusicCheckboxClick(isChecked)
         }
     }
 
@@ -81,10 +74,6 @@ class MainActivity : BaseActivity() {
             //shouldStopMusic = false
             presenter!!.goToGame()
         }
-    }
-
-    fun checkMusicCheckBox(checkState: Boolean) {
-        music_checkbox.isChecked = checkState
     }
 
     override fun onResume() {

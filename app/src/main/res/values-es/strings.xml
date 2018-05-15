@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Velociraptors</string>
+    <string name="start">Empezar</string>
+    <string name="exit">Salir</string>
+    <string name="return_button">Volver</string>
+    <string name="options">Opciones</string>
+    <string name="music">Música</string>
+    <string name="high_scores">Records!</string>
+    <string name="back">Volver</string>
+    <string name="dialog_confirm_clear_records_title">Borrar todos los records?</string>
+    <string name="dialog_confirm_clear_records_accept_button_text">Confirmar</string>
+    <string name="clear_data_base_text">Borrar records</string>
+    <string name="dialog_confirm_clear_records_cancel_button_text">Cancelar</string>
+    <string name="credits">Imágenes diseñadas por freepik.com</string>
+    <string name="new_highs_core_name">Escribe tu nombre</string>
+    <string name="settings_music_switch">Música</string>
+    <string name="new_high_score">NUEVO RECORD!</string>
+    <string name="play_again">Volver a jugar</string>
+    <string name="save">Guardar</string>
+    <string name="settings_title">Opciones</string>
+    <string name="settings_sounds_switch">Sonidos</string>
+    <string name="dialog_confirm_clear_records_message">Esto no puede deshacerse</string>
+    <string name="your_last_score_text">Tu último record:</string>
+</resources>

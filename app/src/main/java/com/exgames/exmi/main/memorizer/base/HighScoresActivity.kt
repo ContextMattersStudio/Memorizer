@@ -22,10 +22,10 @@ class HighScoresActivity : BaseActivity() {
     companion object {
         @JvmField
         val EXTRA_POINTS = "EXTRA_POINTS"
-        val EXTRA_USER_NAME = "EXTRA_USER_NAME"
         val EXTRA_COMES_FROM_WELCOME_SCREEN = "EXTRA_COMES_FROM_WELCOME_SCREEN"
         val EXTRA_COMES_FROM_GAME_SCREEN = "EXTRA_COMES_FROM_GAME_SCREEN"
         val EXTRA_COMES_FROM_SCREEN = "EXTRA_COMES_FROM_SCREEN"
+        val NO_USER_POINTS = -1
 
         fun getIntent(activity: Activity): Intent {
             val intent = Intent(activity, HighScoresActivity::class.java)
@@ -33,10 +33,9 @@ class HighScoresActivity : BaseActivity() {
             return intent
         }
 
-        fun getIntent(activity: Activity, points: Int, userName: String): Intent {
+        fun getIntent(activity: Activity, points: Int): Intent {
             val intent = Intent(activity, HighScoresActivity::class.java)
             intent.putExtra(EXTRA_POINTS, points)
-            intent.putExtra(EXTRA_USER_NAME, userName)
             intent.putExtra(EXTRA_COMES_FROM_SCREEN, EXTRA_COMES_FROM_GAME_SCREEN)
             return intent
         }
@@ -45,11 +44,8 @@ class HighScoresActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_high_scores)
+        val lastUserPoints: Int = intent.getIntExtra(EXTRA_POINTS, NO_USER_POINTS)
         if (intent.extras != null) {
-            val lastUserPoints: Int = intent.getIntExtra(EXTRA_POINTS, -1)
-            if (intent.hasExtra(EXTRA_USER_NAME)) {
-                val lastUserName: String = intent.getStringExtra(EXTRA_USER_NAME)
-            }
             if (intent.hasExtra(EXTRA_COMES_FROM_SCREEN)) {
                 screenToGoBackTo = intent.getStringExtra(EXTRA_COMES_FROM_SCREEN)
             }
@@ -57,7 +53,11 @@ class HighScoresActivity : BaseActivity() {
         val highScoresRepository: HighScoresRepository = HighScoresRepositoryImpl(null, RHighscoresDataSource(), RHighScoresMapper())
 
         presenter = HighScoresPresenter(HighScoresView(this), HighScoresModel(highScoresRepository))
-
+        if (lastUserPoints != NO_USER_POINTS) {
+            presenter!!.initializeLastGamePointsLabel(lastUserPoints)
+        }else{
+            presenter!!.hideLastGamePointsLabel()
+        }
         onClearRecordsButtonPressed()
         onPlayAgainButtonPressed()
         onReturnButtonPressed()
@@ -87,7 +87,7 @@ class HighScoresActivity : BaseActivity() {
         if (screenToGoBackTo == EXTRA_COMES_FROM_WELCOME_SCREEN) {
             ActivityUtils.startActivityAndFinishFadeOutFadeIn(this, MainActivity.getIntent(this))
         } else if (screenToGoBackTo == EXTRA_COMES_FROM_GAME_SCREEN) {
-            ActivityUtils.startActivityAndFinishFadeOutFadeIn(this, GameActivity.getIntent(this))
+            ActivityUtils.startActivityAndFinishFadeOutFadeIn(this, MainActivity.getIntent(this))
         }
     }
 

@@ -1,13 +1,18 @@
 package com.exgames.exmi.main.memorizer.mvp.presenter
 
+import com.exgames.exmi.main.memorizer.R
+import com.exgames.exmi.main.memorizer.background.BackgroundMusicManager
 import com.exgames.exmi.main.memorizer.mvp.model.WelcomeModel
 import com.exgames.exmi.main.memorizer.mvp.view.WelcomeView
+import com.exgames.exmi.main.memorizer.persistent.preferences.SharedPreferenceRepository
 
-class WelcomePresenter : BasePresenter{
+class WelcomePresenter : BasePresenter {
 
     private var view: WelcomeView? = null
     private var model: WelcomeModel? = null
-    private var isSoundActivated: Boolean = false
+    private var isMusicActivated: Boolean = false
+
+    private lateinit var musicManager: BackgroundMusicManager
 
     constructor(view: WelcomeView, model: WelcomeModel) {
         this.view = view
@@ -18,17 +23,14 @@ class WelcomePresenter : BasePresenter{
 
     private fun init() {
         initialize()
-        isSoundActivated = model!!.getShardPreferenceSoundActivated()
-        //onMusicCheckboxClick(isSoundActivated)
-        //initSound()
+        isMusicActivated = model!!.getSharedPreferenceIsMusicActivated()
+        initMusic()
     }
 
-    private fun initSound() {
-        if (isSoundActivated) {
-            view!!.checkCheckBox()
-        } else {
-            view!!.uncheckCheckBox()
-        }
+    private fun initMusic() {
+        val sharedPreferenceRepository = SharedPreferenceRepository(view?.activity?.applicationContext!!)
+        musicManager = BackgroundMusicManager(view?.activity?.applicationContext!!, R.raw.splashscreenloop, sharedPreferenceRepository)
+        musicManager.execute()
     }
 
     fun goToGame() {
@@ -39,25 +41,13 @@ class WelcomePresenter : BasePresenter{
         view?.onExitButtonPressed()
     }
 
-    fun onPause(){
-        view?.releaseMediaPlayer()
-    }
-
-
-    fun onMusicCheckboxClick(checked: Boolean) {
-        model?.putSharedPreferenceSoundActivated(checked)
-        if (checked) {
-            isSoundActivated = true
-            //view!!.playMusic()
-        } else {
-            isSoundActivated = false
-            //view!!.stopPlayingMusic()
-        }
+    fun onPause() {
+        musicManager.pauseMusic()
     }
 
     fun playMusic() {
-        if (isSoundActivated) {
-           // view!!.playMusic()
+        if (isMusicActivated) {
+            // view!!.playMusic()
         }
     }
 

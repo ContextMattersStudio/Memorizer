@@ -1,6 +1,6 @@
 package com.exgames.exmi.main.memorizer.mvp.model
 
-import com.exgames.exmi.main.memorizer.SharedPreferenceRepository
+import com.exgames.exmi.main.memorizer.persistent.preferences.SharedPreferenceRepository
 
 class WelcomeModel {
 
@@ -11,13 +11,8 @@ class WelcomeModel {
 
     }
 
-    fun getShardPreferenceSoundActivated(): Boolean {
-        return sharedPreferenceRepository!!.getSound()
-    }
-
-    fun putSharedPreferenceSoundActivated(soundActivated: Boolean) {
-        sharedPreferenceRepository!!.putSound(soundActivated)
-
+    fun getSharedPreferenceIsMusicActivated(): Boolean {
+        return sharedPreferenceRepository!!.getMusic()
     }
 
 }

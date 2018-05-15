@@ -6,6 +6,7 @@ import android.widget.AdapterView
 import android.widget.ImageView
 import com.exgames.exmi.main.bus.RxBusKotlin
 import com.exgames.exmi.main.bus.events.base.DialogHighScoresSaveButtonPressedBusObserverKotlin
+import com.exgames.exmi.main.memorizer.R
 import com.exgames.exmi.main.memorizer.adapters.ImageAdapter
 import com.exgames.exmi.main.memorizer.base.BaseActivity
 import com.exgames.exmi.main.memorizer.base.HighScoresActivity
@@ -25,6 +26,7 @@ class GamePresenter : BasePresenter {
     private var position: Int? = 0
     private var lastTappedCardPosition: Int? = 0
     private var cardsStillInGame = 0
+    private val QUANTITY_OF_PAIRS_OF_CARDS = 12
 
     companion object {
         private const val DELAY = 500L
@@ -48,11 +50,11 @@ class GamePresenter : BasePresenter {
     }
 
     private fun loadCards() {
-        model?.loadCards()
+        model?.loadCards(QUANTITY_OF_PAIRS_OF_CARDS)
     }
 
 
-    fun onItemClickListener(parent: AdapterView<*>?, view: View?, currentCardTappedPosition: Int, id: Long) {
+    fun onItemClickListener(parent: AdapterView<*>?, imageView: View?, currentCardTappedPosition: Int, id: Long) {
         this.position = currentCardTappedPosition
         if (model == null)
             return
@@ -61,24 +63,33 @@ class GamePresenter : BasePresenter {
             model!!.setTries(model!!.getTries().plus(1))
             model!!.setCardShowingBack(currentCardTappedPosition, false)
 
-            view as ImageView
-            view.setImageResource(model!!.getCard(currentCardTappedPosition)!!.getImage())
+            imageView as ImageView
+            imageView.setImageResource(model!!.getCard(currentCardTappedPosition)!!.getImage()!!)
 
 
             if (firstClick!!) {
                 lastTappedCardPosition = currentCardTappedPosition
                 firstClick = false
                 playing = false
+                if (model!!.isSoundActive()) {
+                    view?.playCardTapSound()
+                }
             } else {
                 // i have two cards clicked at this moment
                 if (model!!.getCard(lastTappedCardPosition!!)!!.equals(model!!.getCard(currentCardTappedPosition))) { // Same pair of cards - two equal cards, they have to disappear
                     cardsStillInGame -= 2
 
                     destroyCardsAfterDelay(lastTappedCardPosition!!, currentCardTappedPosition)
+                    if (model!!.isSoundActive()) {
+                        view?.playCardDisappearSound()
+                    }
                     if (cardsStillInGame == 0) { // When cards still in game == 0 then WIN!
                         performVictory()
                     }
                 } else {
+                    if (model!!.isSoundActive()) {
+                        view?.playCardTapSound()
+                    }
                     delayImagesAfterBothClicked(lastTappedCardPosition!!, currentCardTappedPosition)
                 }
                 firstClick = true
@@ -89,7 +100,6 @@ class GamePresenter : BasePresenter {
 
     private fun destroyCardsAfterDelay(lastTappedCardPosition: Int, currentCardTappedPosition: Int) {
         view?.destroyCardsAfterDelay(lastTappedCardPosition, currentCardTappedPosition, DESTROY_DELAY)
-        //handler.postDelayed({ playing = false }, DESTROY_DELAY)
         playing = false
 
     }
@@ -107,7 +117,6 @@ class GamePresenter : BasePresenter {
     private fun performVictory() {
         performWinSound()
         goToHIghScoreScreen()
-
     }
 
     private fun performWinSound() {
@@ -116,17 +125,25 @@ class GamePresenter : BasePresenter {
         }
     }
 
+    private val MAX_HIGHSCORES_TO_DISPLAY_ID: Int = R.dimen.max_high_scores_to_display
+
     private fun goToHIghScoreScreen() {
         val activity: BaseActivity = view?.getActivity() as BaseActivity
-        val onButtonBackClickedCallback = object : OnButtonClickedCallback {
+        val onButtonBackClickedObserver = object : OnButtonClickedCallback {
             override fun onClick() {
                 ActivityUtils.startActivityAndFinishFadeOutFadeIn(activity, MainActivity.getIntent(activity))
             }
         }
-
-        AlertDialogUtils.showAlertDialogSaveHighScore(view?.getActivity()!!,
-                onButtonBackClickedCallback,
-                model!!.getTries())
+        val maxHighScoresToDisplay = view?.getFloatResource(MAX_HIGHSCORES_TO_DISPLAY_ID)
+        if (model!!.getAllHighScores()!!.size < maxHighScoresToDisplay!!.toInt()
+                || (model!!.getAllHighScores()!!.size > 0 && model!!.getTries() < model!!.getWorstHighScore()!!.score.toInt())) {
+            AlertDialogUtils.showAlertDialogSaveHighScore(view?.getActivity()!!,
+                    onButtonBackClickedObserver,
+                    model!!.getTries())
+        } else {
+            ActivityUtils.startActivityAndFinishFadeOutFadeIn(activity,
+                    HighScoresActivity.getIntent(activity, model!!.getTries()))
+        }
     }
 
     fun onResume() {
@@ -140,7 +157,7 @@ class GamePresenter : BasePresenter {
                 value.userName
                 model!!.saveNewHighScore(userName = value.userName, points = model!!.getTries().toString())
                 ActivityUtils.startActivityAndFinishFadeOutFadeIn(activity,
-                        HighScoresActivity.getIntent(activity, model!!.getTries(), value.userName))
+                        HighScoresActivity.getIntent(activity, model!!.getTries()))
             }
         })
     }

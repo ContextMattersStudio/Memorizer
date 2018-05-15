@@ -4,11 +4,9 @@ import android.util.Log
 import com.exgames.exmi.main.memorizer.persistent.data_source.RHighscoresDataSource
 import com.exgames.exmi.main.memorizer.persistent.data_source.RealmDataSource
 import com.exgames.exmi.main.memorizer.persistent.domain.HighScores
-import com.exgames.exmi.main.memorizer.persistent.entities.HighScore
 import com.exgames.exmi.main.memorizer.persistent.mappers.RealmMapper
 import com.exgames.exmi.main.memorizer.persistent.realm_entities.RHighScores
 import com.exgames.exmi.main.memorizer.persistent.repositories.base.AbsRealmRepository
-import com.exgames.exmi.main.memorizer.persistent.repositories.base.RealmRepository
 import com.exgames.exmi.main.memorizer.persistent.repositories.base.interfaces.HighScoresRepository
 import io.realm.Realm
 
@@ -106,5 +104,19 @@ class HighScoresRepositoryImpl(any: Any?, dataSource: RealmDataSource<RHighScore
             Log.e(e.toString(), e.message)
         }
         return count
+    }
+
+    override fun getWorstHighScore(): HighScores {
+        var result = RHighScores()
+        try {
+            val realm: Realm = Realm.getDefaultInstance()
+            dataSource as RHighscoresDataSource
+            if (dataSource.getFirst(realm, RHighScores()) != null) {
+                result = dataSource.getWorstElement(realm, RHighScores.FIELD_TO_SORT_BY) as RHighScores
+            }
+        } catch (e: Exception) {
+            Log.e(e.toString(), e.message)
+        }
+        return mapper.transform(result)
     }
 }

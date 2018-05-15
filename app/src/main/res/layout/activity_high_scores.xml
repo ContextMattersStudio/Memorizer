@@ -42,14 +42,14 @@
         android:maxLines="1"
         android:text="@string/your_last_score_text"
         android:textColor="@color/colorAccent"
-        android:textSize="50sp"
+        android:textSize="40sp"
         android:textStyle="bold" />
 
     <LinearLayout
         android:id="@+id/buttons_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/admob_ad_high_scores"
+        android:layout_alignParentBottom="true"
         android:layout_marginBottom="5dp"
         android:gravity="center_horizontal"
         android:orientation="horizontal"
@@ -85,6 +85,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
+        android:visibility="gone"
         ads:adSize="BANNER"
         ads:adUnitId="@string/ADMOB_BANNER_ADD_UNIT_ID_EXAMPLE" />
 

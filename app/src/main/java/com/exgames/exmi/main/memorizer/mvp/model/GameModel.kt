@@ -1,8 +1,8 @@
 package com.exgames.exmi.main.memorizer.mvp.model
 
 import com.exgames.exmi.main.memorizer.R
-import com.exgames.exmi.main.memorizer.SharedPreferenceRepository
 import com.exgames.exmi.main.memorizer.persistent.domain.HighScores
+import com.exgames.exmi.main.memorizer.persistent.preferences.SharedPreferenceRepository
 import com.exgames.exmi.main.memorizer.persistent.repositories.base.interfaces.HighScoresRepository
 import com.exgames.exmi.main.utils.ConstantNumbersUtils.Companion.EIGHT_INT
 import com.exgames.exmi.main.utils.ConstantNumbersUtils.Companion.ELEVEN_INT
@@ -17,15 +17,36 @@ import com.exgames.exmi.main.utils.ConstantNumbersUtils.Companion.THREE_INT
 import com.exgames.exmi.main.utils.ConstantNumbersUtils.Companion.TWELVE_INT
 import com.exgames.exmi.main.utils.ConstantNumbersUtils.Companion.TWO_INT
 import java.util.*
+import kotlin.collections.HashMap
 
 class GameModel(repository: HighScoresRepository, private val sharedPreferenceRepository: SharedPreferenceRepository, private val maxHighScoresToDisplay: Long) {
 
     private var cards: ArrayList<Card>? = ArrayList()
     private var tries: Int = 0
     private var repository: HighScoresRepository? = repository
+    private var cardsMap = HashMap<Int, Int>()
 
-    fun loadCards() {
-        cards?.add(Card(ONE_INT, R.drawable.card1))
+    init {
+        cardsMap[ONE_INT] = R.drawable.card1
+        cardsMap[TWO_INT] = R.drawable.card2
+        cardsMap[THREE_INT] = R.drawable.card3
+        cardsMap[FOUR_INT] = R.drawable.card4
+        cardsMap[FIVE_INT] = R.drawable.card5
+        cardsMap[SIX_INT] = R.drawable.card6
+        cardsMap[SEVEN_INT] = R.drawable.card7
+        cardsMap[EIGHT_INT] = R.drawable.card8
+        cardsMap[NINE_INT] = R.drawable.card9
+        cardsMap[TEN_INT] = R.drawable.card10
+        cardsMap[ELEVEN_INT] = R.drawable.card11
+        cardsMap[TWELVE_INT] = R.drawable.card12
+    }
+
+    fun loadCards(quantityOfPairsOfCards: Int) {
+        for (i in 1..quantityOfPairsOfCards) {
+            cards?.add(Card(i, cardsMap[i]))
+            cards?.add(Card(i, cardsMap[i]))
+        }
+        /*cards?.add(Card(ONE_INT, R.drawable.card1))
         cards?.add(Card(ONE_INT, R.drawable.card1))
         cards?.add(Card(TWO_INT, R.drawable.card2))
         cards?.add(Card(TWO_INT, R.drawable.card2))
@@ -48,7 +69,7 @@ class GameModel(repository: HighScoresRepository, private val sharedPreferenceRe
         cards?.add(Card(ELEVEN_INT, R.drawable.card11))
         cards?.add(Card(ELEVEN_INT, R.drawable.card11))
         cards?.add(Card(TWELVE_INT, R.drawable.card12))
-        cards?.add(Card(TWELVE_INT, R.drawable.card12))
+        cards?.add(Card(TWELVE_INT, R.drawable.card12))*/
 
     }
 
@@ -93,7 +114,12 @@ class GameModel(repository: HighScoresRepository, private val sharedPreferenceRe
         return repository?.getFirst()
     }
 
-    fun isSoundActive(): Boolean {
-        return sharedPreferenceRepository.getSound()
+    fun getWorstHighScore() : HighScores?{
+        return repository?.getWorstHighScore()
     }
+
+    fun isSoundActive(): Boolean {
+        return sharedPreferenceRepository.getSounds()
+    }
+
 }

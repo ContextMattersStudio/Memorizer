@@ -44,10 +44,10 @@ class ImageAdapter(context: Context, cards: ArrayList<Card>) : BaseAdapter() {
         imageView.scaleType = ImageView.ScaleType.CENTER_CROP
         imageView.setPadding(EIGHT_INT, EIGHT_INT, EIGHT_INT, EIGHT_INT)
         if (cards?.get(position)!!.visible) {
-            imageView.setImageResource(cards?.get(position)!!.getImage())
+            imageView.setImageResource(cards?.get(position)!!.getImage()!!)
         } else {
             if (!(cards?.get(position)!!.alreadyGone)) {
-                imageView.setImageResource(cards?.get(position)!!.getImage())
+                imageView.setImageResource(cards?.get(position)!!.getImage()!!)
                 imageView.animate()
                         .scaleXBy(SCALE_CARD_FACTOR)
                         .scaleYBy(SCALE_CARD_FACTOR)
