@@ -40,5 +40,13 @@ class HighScoresPresenter(var view: HighScoresView, var model: HighScoresModel) 
         }
 
     }
+
+    fun initializeLastGamePointsLabel(lastUserPoints: Int) {
+        view.initializeLastGamePointsLabel(lastUserPoints)
+    }
+
+    fun hideLastGamePointsLabel() {
+        view.hideLastGamePointsLabel()
+    }
 }
 

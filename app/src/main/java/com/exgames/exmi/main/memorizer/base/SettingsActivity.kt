@@ -3,11 +3,12 @@ package com.exgames.exmi.main.memorizer.base
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.widget.CompoundButton
 import com.exgames.exmi.main.memorizer.R
-import com.exgames.exmi.main.memorizer.SharedPreferenceRepository
 import com.exgames.exmi.main.memorizer.mvp.model.SettingsModel
 import com.exgames.exmi.main.memorizer.mvp.presenter.SettingsPresenter
 import com.exgames.exmi.main.memorizer.mvp.view.SettingsView
+import com.exgames.exmi.main.memorizer.persistent.preferences.SharedPreferenceRepository
 import com.exgames.exmi.main.utils.ActivityUtils
 import kotlinx.android.synthetic.main.activity_settings.*
 
@@ -32,11 +33,18 @@ class SettingsActivity : BaseActivity() {
 
         onBackButtonPressed()
         onMusicSwitchInteraction()
+        onSoundSwitchInteraction()
+    }
+
+    private fun onSoundSwitchInteraction() {
+        switch_sounds.setOnClickListener {
+            presenter.onSoundsSwitchCheckedChange(switch_sounds.isChecked)
+        }
     }
 
     private fun onMusicSwitchInteraction() {
-        switch_music.setOnCheckedChangeListener { _, checked ->
-            presenter.onMusicSwitchCheckedChange(checked)
+        switch_music.setOnClickListener {
+            presenter.onMusicSwitchCheckedChange(switch_music.isChecked)
         }
     }
 
@@ -49,4 +57,5 @@ class SettingsActivity : BaseActivity() {
     override fun onBackPressed() {
         ActivityUtils.startActivityAndFinishFadeOutFadeIn(this, MainActivity.getIntent(this))
     }
+
 }

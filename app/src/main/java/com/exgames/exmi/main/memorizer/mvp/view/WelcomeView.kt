@@ -47,16 +47,6 @@ class WelcomeView : BaseView {
         }
     }
 
-    fun checkCheckBox() {
-        val activityMain: MainActivity = activity as MainActivity
-        activityMain.checkMusicCheckBox(true)
-    }
-
-    fun uncheckCheckBox() {
-        val activityMain: MainActivity = activity as MainActivity
-        activityMain.checkMusicCheckBox(false)
-    }
-
     fun launchHighScoresActivity() {
         ActivityUtils.startActivityAndFinishFadeOutFadeIn(activity!!, HighScoresActivity.getIntent(activity!!))
     }

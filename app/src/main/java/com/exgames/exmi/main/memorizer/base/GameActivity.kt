@@ -5,7 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.TypedValue
 import com.exgames.exmi.main.memorizer.R
-import com.exgames.exmi.main.memorizer.SharedPreferenceRepository
+import com.exgames.exmi.main.memorizer.persistent.preferences.SharedPreferenceRepository
 import com.exgames.exmi.main.memorizer.adapters.ImageAdapter
 import com.exgames.exmi.main.memorizer.mvp.model.GameModel
 import com.exgames.exmi.main.memorizer.mvp.presenter.GamePresenter

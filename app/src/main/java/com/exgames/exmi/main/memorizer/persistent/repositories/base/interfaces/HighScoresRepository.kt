@@ -12,4 +12,5 @@ interface HighScoresRepository : RealmRepository {
     fun getTopXElements(elementsToGet: Int): MutableList<HighScores>
     fun clearLast()
     fun getCount() : Long
+    fun getWorstHighScore() : HighScores
 }

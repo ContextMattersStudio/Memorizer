@@ -1,10 +1,11 @@
 package com.exgames.exmi.main.memorizer.mvp.view
 
-import android.content.DialogInterface
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.view.View
 import android.widget.LinearLayout
+import android.widget.TextView
 import com.exgames.exmi.main.memorizer.R
 import com.exgames.exmi.main.memorizer.adapters.HighScoresAdapter
 import com.exgames.exmi.main.memorizer.base.BaseActivity
@@ -68,5 +69,15 @@ class HighScoresView(activity: BaseActivity) : BaseView() {
 
     fun notifySetDataChanged() {
         adapter?.notifyDataSetChanged()
+    }
+
+    fun initializeLastGamePointsLabel(lastUserPoints: Int) {
+        val editText = activity?.findViewById<TextView>(R.id.last_score) as TextView
+        editText.text = editText.text.toString().plus(lastUserPoints)
+    }
+
+    fun hideLastGamePointsLabel() {
+        val editText = activity?.findViewById<TextView>(R.id.last_score) as TextView
+        editText.visibility = View.GONE
     }
 }

@@ -2,6 +2,8 @@ package com.exgames.exmi.main.utils
 
 import android.app.Activity
 import android.app.AlertDialog
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.widget.Button
 import android.widget.EditText
@@ -19,6 +21,7 @@ class AlertDialogUtils {
                                          newHighScore: Int) {
             val dialog = createDialog(activity, R.layout.new_high_score_dialog, false)
             dialog!!.show()
+            dialog.window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             val buttonBack: Button = dialog.findViewById(R.id.button_back)
             val buttonSave: Button = dialog.findViewById(R.id.button_save)
             val editHighScoresUser: EditText = dialog.findViewById(R.id.edit_high_score_user)

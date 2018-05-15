@@ -2,7 +2,7 @@ package com.exgames.exmi.main.memorizer.mvp.model
 
 import com.exgames.exmi.main.memorizer.R
 
-class Card(private var id: Int, private var imageFront: Int) {
+class Card(private var id: Int, private var imageFront: Int?) {
 
     private var showingBack = true
     var visible = true
@@ -13,7 +13,7 @@ class Card(private var id: Int, private var imageFront: Int) {
         return card.id.equals(this.id)
     }
 
-    fun getImage(): Int {
+    fun getImage(): Int? {
         if (showingBack) {
             return R.drawable.back
         }

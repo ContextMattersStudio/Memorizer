@@ -1,16 +1,17 @@
-package com.exgames.exmi.main.memorizer
+package com.exgames.exmi.main.memorizer.persistent.preferences
 
 import android.app.Activity
+import android.content.Context
 import android.content.SharedPreferences
 
-class SharedPreferenceRepository(activity: Activity) {
+class SharedPreferenceRepository(context: Context) {
     val PREFS_FILENAME = "com.exgames.prefs"
     var preferences: SharedPreferences? = null
     private val SOUND_ACTIVATED = "SOUND_ACTIVATED"
     private val MUSIC_ACTIVATED = "MUSIC_ACTIVATED"
 
     init {
-        preferences = activity.getSharedPreferences(PREFS_FILENAME, 0)
+        preferences = context.getSharedPreferences(PREFS_FILENAME, 0)
     }
 
     fun putMusic(soundActivated: Boolean) {

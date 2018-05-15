@@ -2,11 +2,9 @@ package com.exgames.exmi.main.memorizer.persistent.data_source
 
 import android.support.annotation.NonNull
 import android.util.Log
-import com.exgames.exmi.main.memorizer.persistent.domain.HighScores
 import io.realm.Realm
 import io.realm.RealmObject
 import io.realm.Sort
-import io.realm.com_exgames_exmi_main_memorizer_persistent_realm_entities_RHighScoresRealmProxy
 
 
 abstract class RealmDataSource<T : RealmObject>(private var clazz: Class<T>) {
@@ -54,6 +52,10 @@ abstract class RealmDataSource<T : RealmObject>(private var clazz: Class<T>) {
         } else {
             results.subList(0, results.size).toMutableList()
         }
+    }
+
+    fun getWorstElement(realm: Realm, field: String): T? {
+        return realm.where(clazz).sort(field, Sort.DESCENDING).findAll().first()
     }
 
     fun clear(realmInstance: Realm, firstField: String, secondField: String, firstFieldValue: String, secondFieldValue: String) {
